@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.CSharp" />
+      <PackageReference Include="System.Data.DataSetExtensions" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+	  <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
+	  <PackageReference Include="HandyControl" />
+	  <PackageReference Include="YE.Core" />
+  </ItemGroup>
+</Project>

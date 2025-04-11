@@ -1,0 +1,91 @@
+﻿<Window x:Class="Hash.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:Hash"
+        xmlns:localVM="clr-namespace:Hash.ViewModels"
+        xmlns:localBehaviors="clr-namespace:Hash.Behaviors"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Title="Hash"
+        Width="490"
+        Height="350"
+        d:DataContext="{d:DesignInstance Type=localVM:MainViewModel}"
+        ResizeMode="CanMinimize"
+        mc:Ignorable="d">
+
+    <i:Interaction.Behaviors>
+        <localBehaviors:DropFileBehavior Data="{Binding FileNames, Mode=OneWayToSource}" />
+    </i:Interaction.Behaviors>
+
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right">
+                    <StackPanel.Resources>
+                        <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBaseStyle}">
+                            <Setter Property="Margin" Value="3,1.5" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <CheckBox Content="Version" IsChecked="{Binding ShowVersion}" />
+                    <CheckBox Content="Date" IsChecked="{Binding ShowDate}" />
+                    <CheckBox Content="MD5" IsChecked="{Binding ShowMD5}" />
+                    <CheckBox Content="SHA1" IsChecked="{Binding ShowSHA1}" />
+                    <CheckBox Content="CRC32" IsChecked="{Binding ShowCRC32}" />
+                </StackPanel>
+
+                <UniformGrid Rows="3">
+                    <UniformGrid Rows="1">
+                        <UniformGrid.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource ButtonDefault.Small}">
+                                <Setter Property="Width" Value="65" />
+                                <Setter Property="Margin" Value="5,0" />
+                            </Style>
+                        </UniformGrid.Resources>
+                        <Button Content="Browse..." Command="{Binding BrowseCommand}" />
+                        <Button Content="Clear" Command="{Binding ClearCommand}" />
+                        <Button Content="Copy" Command="{Binding CopyCommand}" />
+                        <Button Content="Save..." Command="{Binding SaveCommand}" />
+                        <Button Content="Stop" Command="{Binding StopCommand}" IsEnabled="{Binding StopEnabled}" />
+                    </UniformGrid>
+
+                    <DockPanel>
+                        <TextBlock Width="35"
+                                   Margin="10,0"
+                                   VerticalAlignment="Center"
+                                   Text="File"
+                                   DockPanel.Dock="Left" />
+                        <ProgressBar Height="7"
+                                     Maximum="1"
+                                     Style="{StaticResource ProgressBarFlat}"
+                                     Value="{Binding FileValue}" />
+                    </DockPanel>
+
+                    <DockPanel>
+                        <TextBlock Width="35"
+                                   Margin="10,0"
+                                   VerticalAlignment="Center"
+                                   Text="Total"
+                                   DockPanel.Dock="Left" />
+                        <ProgressBar Height="7"
+                                     Maximum="{Binding TotalMaximum}"
+                                     Style="{StaticResource ProgressBarFlat}"
+                                     Value="{Binding TotalValue}" />
+                    </DockPanel>
+                </UniformGrid>
+            </DockPanel>
+        </Grid>
+
+        <TextBox Margin="12,0"
+                 IsReadOnly="True"
+                 HorizontalScrollBarVisibility="Visible"
+                 VerticalScrollBarVisibility="Visible"
+                 Text="{Binding Msg}" >
+            <i:Interaction.Behaviors>
+                <localBehaviors:TextBoxScrollToEndBehavior/>
+            </i:Interaction.Behaviors>
+        </TextBox>
+    </DockPanel>
+</Window>
