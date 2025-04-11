@@ -5,4 +5,4 @@
 
 
 
-[Hash](https://keir.net/hash.html)
+[Hash](https://github.com/njit-77/LittleToolkit/tree/main/Hash)
