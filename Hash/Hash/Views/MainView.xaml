@@ -15,16 +15,12 @@
         ResizeMode="CanMinimize"
         mc:Ignorable="d">
 
-    <i:Interaction.Behaviors>
-        <localBehaviors:DropFileBehavior Data="{Binding FileNames, Mode=OneWayToSource}" />
-    </i:Interaction.Behaviors>
-
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right">
                     <StackPanel.Resources>
-                        <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBaseStyle}">
+                        <Style TargetType="CheckBox">
                             <Setter Property="Margin" Value="3,1.5" />
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                         </Style>
@@ -39,7 +35,7 @@
                 <UniformGrid Rows="3">
                     <UniformGrid Rows="1">
                         <UniformGrid.Resources>
-                            <Style TargetType="Button" BasedOn="{StaticResource ButtonDefault.Small}">
+                            <Style TargetType="Button">
                                 <Setter Property="Width" Value="65" />
                                 <Setter Property="Margin" Value="5,0" />
                             </Style>
@@ -57,10 +53,7 @@
                                    VerticalAlignment="Center"
                                    Text="File"
                                    DockPanel.Dock="Left" />
-                        <ProgressBar Height="7"
-                                     Maximum="1"
-                                     Style="{StaticResource ProgressBarFlat}"
-                                     Value="{Binding FileValue}" />
+                        <ProgressBar Height="7" Maximum="1" Value="{Binding FileValue}" />
                     </DockPanel>
 
                     <DockPanel>
@@ -69,10 +62,7 @@
                                    VerticalAlignment="Center"
                                    Text="Total"
                                    DockPanel.Dock="Left" />
-                        <ProgressBar Height="7"
-                                     Maximum="{Binding TotalMaximum}"
-                                     Style="{StaticResource ProgressBarFlat}"
-                                     Value="{Binding TotalValue}" />
+                        <ProgressBar Height="7" Maximum="{Binding TotalMaximum}" Value="{Binding TotalValue}" />
                     </DockPanel>
                 </UniformGrid>
             </DockPanel>
@@ -82,9 +72,11 @@
                  IsReadOnly="True"
                  HorizontalScrollBarVisibility="Visible"
                  VerticalScrollBarVisibility="Visible"
-                 Text="{Binding Msg}" >
+                 Text="{Binding Msg}">
             <i:Interaction.Behaviors>
-                <localBehaviors:TextBoxScrollToEndBehavior/>
+                <localBehaviors:TextBoxScrollToEndBehavior />
+
+                <localBehaviors:TextBoxPreviewDropBehavior Data="{Binding FileNames, Mode=OneWayToSource}" />
             </i:Interaction.Behaviors>
         </TextBox>
     </DockPanel>
