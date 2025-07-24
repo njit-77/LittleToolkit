@@ -15,6 +15,10 @@
         ResizeMode="CanMinimize"
         mc:Ignorable="d">
 
+    <i:Interaction.Behaviors>
+        <localBehaviors:DropFileBehavior Files="{Binding FileNames, Mode=OneWayToSource}" />
+    </i:Interaction.Behaviors>
+
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
             <DockPanel>
@@ -75,8 +79,6 @@
                  Text="{Binding Msg}">
             <i:Interaction.Behaviors>
                 <localBehaviors:TextBoxScrollToEndBehavior />
-
-                <localBehaviors:TextBoxPreviewDropBehavior Data="{Binding FileNames, Mode=OneWayToSource}" />
             </i:Interaction.Behaviors>
         </TextBox>
     </DockPanel>

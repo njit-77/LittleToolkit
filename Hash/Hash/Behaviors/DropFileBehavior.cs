@@ -3,20 +3,20 @@ using Microsoft.Xaml.Behaviors;
 
 namespace Hash.Behaviors;
 
-public class TextBoxPreviewDropBehavior : Behavior<System.Windows.Controls.TextBox>
+public class DropFileBehavior : Behavior<FrameworkElement>
 {
-    public string[]? Data
+    public static readonly DependencyProperty FilesProperty = DependencyProperty.Register(
+        nameof(Files),
+        typeof(string[]),
+        typeof(DropFileBehavior),
+        new UIPropertyMetadata(null)
+    );
+
+    public string[]? Files
     {
         get => (string[]?)GetValue(FilesProperty);
         set => SetValue(FilesProperty, value);
     }
-
-    public static readonly DependencyProperty FilesProperty = DependencyProperty.Register(
-        nameof(Data),
-        typeof(string[]),
-        typeof(TextBoxPreviewDropBehavior),
-        new UIPropertyMetadata(null)
-    );
 
     protected override void OnAttached()
     {
@@ -25,17 +25,14 @@ public class TextBoxPreviewDropBehavior : Behavior<System.Windows.Controls.TextB
         AssociatedObject.AllowDrop = true;
         AssociatedObject.PreviewDragOver += PreviewDragOverHandler;
         AssociatedObject.PreviewDrop += PreviewDropHandler;
-        AssociatedObject.PreviewDragEnter += PreviewDragEnterHandler;
     }
 
     protected override void OnDetaching()
     {
         base.OnDetaching();
 
-        AssociatedObject.AllowDrop = false;
         AssociatedObject.PreviewDragOver -= PreviewDragOverHandler;
         AssociatedObject.PreviewDrop -= PreviewDropHandler;
-        AssociatedObject.PreviewDragEnter -= PreviewDragEnterHandler;
     }
 
     private void PreviewDragOverHandler(object sender, DragEventArgs e)
@@ -56,13 +53,7 @@ public class TextBoxPreviewDropBehavior : Behavior<System.Windows.Controls.TextB
     {
         if (e.Data.GetDataPresent(DataFormats.FileDrop))
         {
-            Data = (string[])e.Data.GetData(DataFormats.FileDrop);
+            Files = (e.Data.GetData(DataFormats.FileDrop) as string[]);
         }
-    }
-
-    private void PreviewDragEnterHandler(object sender, DragEventArgs e)
-    {
-        e.Effects = DragDropEffects.Copy;
-        e.Handled = true;
     }
 }
